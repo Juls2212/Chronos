@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page_title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <main class="page-shell">
+        <header class="hero-panel">
+            <p class="project-label">{{ page_title }}</p>
+            <h1>{{ page_title }}</h1>
+            <p class="project-subtitle">{{ page_subtitle }}</p>
+        </header>
+
+        <section class="content-panel">
+            <h2>{{ interface_sections.main_clock_title }}</h2>
+            <p>Sección base en construcción.</p>
+        </section>
+
+        <section class="content-panel">
+            <h2>{{ interface_sections.pomodoro_title }}</h2>
+            <p>Sección base en construcción.</p>
+        </section>
+
+        <section class="content-panel">
+            <h2>{{ interface_sections.alarms_title }}</h2>
+            <p>Sección base en construcción.</p>
+        </section>
+
+        <section class="content-panel">
+            <h2>{{ interface_sections.history_title }}</h2>
+            <p>Sección base en construcción.</p>
+        </section>
+
+        <section class="content-panel">
+            <h2>{{ interface_sections.structure_explanation_title }}</h2>
+            <p>Esta sección mostrará cómo Chronos utilizará listas doblemente enlazadas circulares en futuras fases.</p>
+        </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='js/chronos_interface.js') }}"></script>
+</body>
+</html>
