@@ -3,40 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ page_title }}</title>
+    <title>{{ interface_overview.page_title }}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
     <main class="page-shell">
         <header class="hero-panel">
-            <p class="project-label">{{ page_title }}</p>
-            <h1>{{ page_title }}</h1>
-            <p class="project-subtitle">{{ page_subtitle }}</p>
+            <p class="project-label">{{ interface_overview.page_title }}</p>
+            <h1>{{ interface_overview.page_title }}</h1>
+            <p class="project-subtitle">{{ interface_overview.page_subtitle }}</p>
         </header>
 
-        <section class="content-panel">
-            <h2>{{ interface_sections.main_clock_title }}</h2>
-            <p>Sección base en construcción.</p>
+        <section class="clock-panel">
+            <div class="clock-panel-header">
+                <h2>{{ interface_overview.clock_title }}</h2>
+                <p class="status-label" id="clock-status">
+                    {% if clock_state.running %}En ejecución{% else %}En pausa{% endif %}
+                </p>
+            </div>
+
+            <div class="clock-visual-layout">
+                <div class="analog-clock" aria-label="Reloj analógico">
+                    <div class="clock-face-ring"></div>
+                    <div class="clock-center-point"></div>
+
+                    <span class="clock-number number-12">12</span>
+                    <span class="clock-number number-1">1</span>
+                    <span class="clock-number number-2">2</span>
+                    <span class="clock-number number-3">3</span>
+                    <span class="clock-number number-4">4</span>
+                    <span class="clock-number number-5">5</span>
+                    <span class="clock-number number-6">6</span>
+                    <span class="clock-number number-7">7</span>
+                    <span class="clock-number number-8">8</span>
+                    <span class="clock-number number-9">9</span>
+                    <span class="clock-number number-10">10</span>
+                    <span class="clock-number number-11">11</span>
+
+                    <div class="clock-hand hour-hand" id="hour-hand"></div>
+                    <div class="clock-hand minute-hand" id="minute-hand"></div>
+                    <div class="clock-hand second-hand" id="second-hand"></div>
+                </div>
+
+                <div class="clock-reference-panel">
+                    <p class="reference-label">Referencia digital</p>
+                    <div class="time-display" id="clock-display">{{ clock_state.current_time }}</div>
+                </div>
+            </div>
+
+            <div class="primary-actions">
+                <button type="button" data-clock-action="/api/clock/start">{{ interface_overview.start_button_label }}</button>
+                <button type="button" data-clock-action="/api/clock/pause">{{ interface_overview.pause_button_label }}</button>
+                <button type="button" data-clock-action="/api/clock/reset">{{ interface_overview.reset_button_label }}</button>
+            </div>
+
+            <div class="adjustment-grid">
+                <button type="button" data-clock-action="/api/clock/hour/forward">{{ interface_overview.hour_forward_label }}</button>
+                <button type="button" data-clock-action="/api/clock/hour/backward">{{ interface_overview.hour_backward_label }}</button>
+                <button type="button" data-clock-action="/api/clock/minute/forward">{{ interface_overview.minute_forward_label }}</button>
+                <button type="button" data-clock-action="/api/clock/minute/backward">{{ interface_overview.minute_backward_label }}</button>
+                <button type="button" data-clock-action="/api/clock/second/forward">{{ interface_overview.second_forward_label }}</button>
+                <button type="button" data-clock-action="/api/clock/second/backward">{{ interface_overview.second_backward_label }}</button>
+            </div>
         </section>
 
-        <section class="content-panel">
-            <h2>{{ interface_sections.pomodoro_title }}</h2>
-            <p>Sección base en construcción.</p>
-        </section>
-
-        <section class="content-panel">
-            <h2>{{ interface_sections.alarms_title }}</h2>
-            <p>Sección base en construcción.</p>
-        </section>
-
-        <section class="content-panel">
-            <h2>{{ interface_sections.history_title }}</h2>
-            <p>Sección base en construcción.</p>
-        </section>
-
-        <section class="content-panel">
-            <h2>{{ interface_sections.structure_explanation_title }}</h2>
-            <p>Esta sección mostrará cómo Chronos utilizará listas doblemente enlazadas circulares en futuras fases.</p>
+        <section class="history-panel">
+            <div class="history-panel-header">
+                <h2>Historial de eventos</h2>
+            </div>
+            <ul class="history-list" id="history-list">
+                {% for history_event in history_events %}
+                <li class="history-entry">
+                    <span class="history-time">{{ history_event.recorded_at }}</span>
+                    <span class="history-message">{{ history_event.event_message }}</span>
+                </li>
+                {% endfor %}
+            </ul>
         </section>
     </main>
 
