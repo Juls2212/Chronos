@@ -67,9 +67,38 @@
             </div>
         </section>
 
+        <section class="pomodoro-panel">
+            <div class="pomodoro-panel-header">
+                <h2>{{ interface_overview.pomodoro_title }}</h2>
+                <p class="status-label" id="pomodoro-status">
+                    {% if pomodoro_state.running %}En ejecución{% else %}En pausa{% endif %}
+                </p>
+            </div>
+
+            <div class="pomodoro-summary-grid">
+                <article class="pomodoro-summary-card">
+                    <p class="summary-label">{{ interface_overview.pomodoro_current_phase_label }}</p>
+                    <div class="pomodoro-phase-label" id="pomodoro-phase-label">
+                        {% if pomodoro_state.phase_name == "focus" %}Enfoque{% elif pomodoro_state.phase_name == "short_break" %}Descanso corto{% else %}Descanso largo{% endif %}
+                    </div>
+                </article>
+                <article class="pomodoro-summary-card">
+                    <p class="summary-label">{{ interface_overview.pomodoro_remaining_time_label }}</p>
+                    <div class="pomodoro-time-label" id="pomodoro-time-label">{{ "%02d:%02d"|format(pomodoro_state.remaining_seconds // 60, pomodoro_state.remaining_seconds % 60) }}</div>
+                </article>
+            </div>
+
+            <div class="primary-actions">
+                <button type="button" data-pomodoro-action="/api/pomodoro/start">{{ interface_overview.pomodoro_start_button_label }}</button>
+                <button type="button" data-pomodoro-action="/api/pomodoro/pause">{{ interface_overview.pomodoro_pause_button_label }}</button>
+                <button type="button" data-pomodoro-action="/api/pomodoro/reset">{{ interface_overview.pomodoro_reset_button_label }}</button>
+                <button type="button" data-pomodoro-action="/api/pomodoro/next-phase">{{ interface_overview.pomodoro_next_phase_button_label }}</button>
+            </div>
+        </section>
+
         <section class="history-panel">
             <div class="history-panel-header">
-                <h2>Historial de eventos</h2>
+                <h2>{{ interface_overview.history_title }}</h2>
             </div>
             <ul class="history-list" id="history-list">
                 {% for history_event in history_events %}
